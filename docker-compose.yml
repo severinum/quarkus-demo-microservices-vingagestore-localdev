@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  vintage-books:
+    image: quay.io/sewerynmi/quarkus-microservices-vintagestore-books:$BOOK_SERVICE_TAG
+    container_name: vingare-books
+    environment:
+      NUMBERS_SERVICE_URL: http://vintage-numbers:8101
+    ports:
+      - "8102:8102"
+    networks:
+      - vingagestore
+
+  vintage-numbers:
+    image: quay.io/sewerynmi/quarkus-microservices-vintagestore-numbers:$NUMBER_SERVICE_TAG
+    container_name: vingare-numbers
+    ports:
+      - "8101:8101"
+    networks:
+      - vingagestore
+
+networks:
+  vingagestore:
+    driver: bridge
